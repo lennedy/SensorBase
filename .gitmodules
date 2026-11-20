@@ -1,0 +1,3 @@
+[submodule "lib/DispositivoBase"]
+	path = lib/DispositivoBase
+	url = https://github.com/lennedy/dispositivoBase.git
