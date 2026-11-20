@@ -39,7 +39,11 @@ void SensorBase::sensor() {
 
 void SensorBase::montarEstado(JsonDocument& doc) {
   //Aque está sendo colocado os dados que serão reptidamente enviados ao broker
-  doc["valorSensor"] = "LOCKED";
-  doc["SaudeSensor"] = true;
+  JsonArray medicoes = doc["measurements"].to<JsonArray>();
+  JsonObject medicao = medicoes.add<JsonObject>();
+  medicao["code"] = "nivel_agua",
+  medicao["data_type"] = "numeric";
+  medicao["value"] = 75.5;
+  medicao["measured_at"] = "2026-11-17T16:30:00Z";
 }
 
