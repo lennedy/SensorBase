@@ -25,6 +25,14 @@ static ConfigDispositivo criarConfig() {
   cfg.ota = true;
   cfg.senhaOta = SENHA_BROKER;
 
+  // OTA por HTTP — escolha um, os dois ou nenhum:
+  // Cliente: o dispositivo baixa o .bin de um servidor ao receber "UPDATE <url>" via MQTT.
+  cfg.otaHttp = false;
+  cfg.otaUrlPermitida = URL_FIRMWARE_PERMITIDA;
+  // Servidor: envie o .bin por upload em http://<ip-do-dispositivo>/update (usuário/senha abaixo).
+  cfg.otaServidor = false;
+  cfg.otaServidorSenha = SENHA_BROKER;
+
   return cfg;
 }
 

@@ -5,3 +5,5 @@
 .vscode/ipch
 .vscode/*
 include/DadosMqtt_casa.h
+
+sensorBase.patch
