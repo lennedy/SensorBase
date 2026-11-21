@@ -30,7 +30,7 @@ static ConfigDispositivo criarConfig() {
   cfg.otaHttp = false;
   cfg.otaUrlPermitida = URL_FIRMWARE_PERMITIDA;
   // Servidor: envie o .bin por upload em http://<ip-do-dispositivo>/update (usuário/senha abaixo).
-  cfg.otaServidor = false;
+  cfg.otaServidor = true;
   cfg.otaServidorSenha = SENHA_BROKER;
 
   return cfg;
