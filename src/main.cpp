@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "DadosMqtt.h"
-#include "SensorBase.h"
+#include "DadosMqtt_casa.h"
+#include "SensorNivel.h"
 
 static ConfigDispositivo criarConfig() {
   ConfigDispositivo cfg;
@@ -36,7 +36,15 @@ static ConfigDispositivo criarConfig() {
   return cfg;
 }
 
-SensorBase sensor(criarConfig());
+static PinosSinalizacao criarPinagem() {
+  PinosSinalizacao pinos;
+
+  pinos.rgbHabilitado=false;
+
+  return pinos;
+}
+
+SensorNivel sensor(criarConfig(), criarPinagem());
 
 void setup() {
   Serial.begin(115200);
