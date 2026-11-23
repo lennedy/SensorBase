@@ -27,6 +27,14 @@ void SensorNivel::atuador(const String& payload) {
 // ---------------------------------------------------------------------------
 
 void SensorNivel::sensor() {
+
+  lerSensor();
+  procuraErro();
+  calcValorMedia();
+
+}
+
+void SensorNivel::lerSensor(){
   //Aqui deve ficar o código que realizará a leitura do sensor
   const float SOUND_VELOCITY = 0.034;
   const float CM_TO_INCH     = 0.393701;
@@ -47,7 +55,57 @@ void SensorNivel::sensor() {
   
   // Calculate the distance
   distanceCm = duration * SOUND_VELOCITY/2;
+  _valor = distanceCm;
+}
 
+
+void SensorNivel::procuraErro(){
+  if(_valor > 210 || _valor == 0){
+    _sensorFalhou = true;
+  }
+  else{
+    _sensorFalhou = false;
+  }
+}
+
+
+void SensorNivel::calcValorMedia() {
+  static unsigned int amostrasTotais = 0;  //variável para realizar o filtro de média
+  static unsigned int amostrasValidas = 0; //variável para realizar o filtro de média
+  static float acumulador = 0;       //variável para acumular a média
+
+  //Realização de tratamento de erros
+  if( _sensorFalhou == false ){
+    float temp  = _valor;
+    acumulador += temp; //somente os valores sem erro serão utilizados na média
+    amostrasValidas++;  //incremento das amostras onde não foram encontradas erros
+  }
+  amostrasTotais++;  //incremento de amostras total
+
+  //realização do calculo de média
+  if (amostrasTotais >= JANELA_FILTRO){
+
+    //se amostras válidas forem diferentes das amostras totais houve erro em alguma aquisição de dados
+    if(amostrasTotais != amostrasValidas){
+      if(amostrasValidas > 0){
+        _valorMedia = acumulador/amostrasValidas;
+      }
+      else{ //Se amostras válidas for igual a 0 o valor será zero e o conjunto de dados inválidos
+        _valorMedia = 0;
+        _mediaInvalida = true;
+      }
+      
+      _sensorFalhou = true;
+    }
+    else{ //todos os dados são válidos
+      _valorMedia = acumulador/JANELA_FILTRO;
+      _sensorFalhou  = false;
+    }
+
+    amostrasTotais = 0; 
+    amostrasValidas = 0;
+    acumulador = 0;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -60,7 +118,9 @@ void SensorNivel::montarEstado(JsonDocument& doc) {
   JsonObject medicao = medicoes.add<JsonObject>();
   medicao["code"] = "nivel_agua",
   medicao["data_type"] = "numeric";
-  medicao["value"] = _ultimaLeitura;
-  medicao["measured_at"] = "2026-11-17T16:30:00Z";
+  medicao["value"] = _valor;
+  medicao["s_err"] = _sensorFalhou;
+  medicao["media"] = _valorMedia;
+  medicao["m_err"] = _mediaInvalida;
 }
 
