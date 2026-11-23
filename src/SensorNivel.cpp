@@ -122,5 +122,6 @@ void SensorNivel::montarEstado(JsonDocument& doc) {
   medicao["s_err"] = _sensorFalhou;
   medicao["media"] = _valorMedia;
   medicao["m_err"] = _mediaInvalida;
+  medicao["measured_at"] = horarioEpoch();
 }
 

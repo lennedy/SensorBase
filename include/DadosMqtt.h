@@ -15,6 +15,8 @@
 #define NOME_CLIENTE        ""   // único por dispositivo, ex.: "fechadura-sala-01"
 #define NOME_TOPICO         ""   // tópico base, ex.: "campus/portas"
 
+#define SERVIDOR_NTP        ""   // endereço do servidor NTP
+
 // Prefixo das URLs aceitas no comando "UPDATE <url>" (OTA por HTTP).
 // Deixe vazio para desativar. Ex.: "http://192.168.0.10:8000/firmware/"
 #define URL_FIRMWARE_PERMITIDA ""

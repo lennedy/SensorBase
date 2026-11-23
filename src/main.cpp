@@ -33,6 +33,8 @@ static ConfigDispositivo criarConfig() {
   cfg.otaServidor = true;
   cfg.otaServidorSenha = SENHA_BROKER;
 
+  cfg.ntpServidor1 = SERVIDOR_NTP;
+
   return cfg;
 }
 
