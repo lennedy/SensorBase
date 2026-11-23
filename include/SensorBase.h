@@ -20,7 +20,7 @@ class SensorBase : public DispositivoBase {
   void sensor() override;
 
   void aoIniciar() override;
-  void montarEstado(JsonDocument& doc) override;
+  void montarMedicao(JsonDocument& doc) override;
 
  private:
 

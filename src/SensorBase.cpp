@@ -37,8 +37,8 @@ void SensorBase::sensor() {
 // Estado e Home Assistant
 // ---------------------------------------------------------------------------
 
-void SensorBase::montarEstado(JsonDocument& doc) {
-  //Aque está sendo colocado os dados que serão reptidamente enviados ao broker
+void SensorBase::montarMedicao(JsonDocument& doc) {
+  //Medições publicadas em <base>/<nome>/medicao (o id é adicionado pela DispositivoBase)
   JsonArray medicoes = doc["measurements"].to<JsonArray>();
   JsonObject medicao = medicoes.add<JsonObject>();
   medicao["code"] = "nivel_agua",
