@@ -3,6 +3,7 @@
 
 #include <DispositivoBase.h>
 #include <Wire.h>
+#include "SimuladorSenoide.h"
 
 #define TRIG_PIN 12
 #define ECHO_PIN 14
@@ -35,6 +36,10 @@ class SensorNivel : public DispositivoBase {
   float _valor=0;
   float _valorMedia=0;
   float _mediaInvalida = false;
+
+  // Simulação (usada somente quando compilado com -D SENSOR_SIMULADO):
+  // senoide de 15 a 195 cm, ciclo de 2 min, com ruído de ±1 cm para exercitar o filtro de média.
+  SimuladorSenoide _simulador{105.0f, 90.0f, 120000, 0.0f, 1.0f};
 
   static const uint32_t kIntervaloEntreLeituras = 5000;  // ms entre duas leituras válidas
   // static const uint32_t kTempoAcionamento = 500;         // ms de pulso na fechadura

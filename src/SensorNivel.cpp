@@ -35,6 +35,13 @@ void SensorNivel::sensor() {
 }
 
 void SensorNivel::lerSensor(){
+#ifdef SENSOR_SIMULADO
+  // Sem o sensor ultrassônico conectado: gera uma senoide em vez de chamar pulseIn()
+  // (que ficaria bloqueado aguardando o eco).
+  _valor = _simulador.valor(millis());
+  return;
+#endif
+
   //Aqui deve ficar o código que realizará a leitura do sensor
   const float SOUND_VELOCITY = 0.034;
   const float CM_TO_INCH     = 0.393701;
