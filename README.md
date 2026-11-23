@@ -42,7 +42,7 @@ class MeuDispositivo : public DispositivoBase {
 };
 ```
 
-Ganchos opcionais (`override`): `aoIniciar()`, `aoConectar()`, `montarEstado(doc)`,
+Ganchos opcionais (`override`): `aoIniciar()`, `aoConectar()`, `montarEstado(doc)`, `montarMedicao(doc)`,
 `configurarHomeAssistant(ha)`, `aoReceberMensagem(topico, payload)`.
 
 Em `main.cpp`: `dispositivo.iniciar()` no `setup()` e `dispositivo.loop()` no `loop()`.
@@ -51,7 +51,8 @@ Em `main.cpp`: `dispositivo.iniciar()` no `setup()` e `dispositivo.loop()` no `l
 
 | Tópico | Conteúdo |
 |---|---|
-| `<base>/<nome>` | estado em JSON (RSSI, heap, stack, uptime + campos da filha), periódico |
+| `<base>/<nome>` | status em JSON (`id`, `health`, `timestamp`), periódico |
+| `<base>/<nome>/medicao` | medição em JSON (`id`, `measurements`), periódico |
 | `<base>/<nome>/cmd` | comandos recebidos (chamam `atuador()`) |
 | `<base>/<nome>/available` | `online` (retido) / `offline` (LWT) |
 | `homeassistant/<componente>/<nome>/<id>/config` | descoberta do Home Assistant (retida) |

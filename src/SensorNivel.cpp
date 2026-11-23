@@ -112,8 +112,8 @@ void SensorNivel::calcValorMedia() {
 // Estado e Home Assistant
 // ---------------------------------------------------------------------------
 
-void SensorNivel::montarEstado(JsonDocument& doc) {
-  //Aque está sendo colocado os dados que serão reptidamente enviados ao broker
+void SensorNivel::montarMedicao(JsonDocument& doc) {
+  //Medições publicadas em <base>/<nome>/medicao (o id é adicionado pela DispositivoBase)
   JsonArray medicoes = doc["measurements"].to<JsonArray>();
   JsonObject medicao1 = medicoes.add<JsonObject>();
   JsonObject medicao2 = medicoes.add<JsonObject>();
