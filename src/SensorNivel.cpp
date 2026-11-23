@@ -115,13 +115,18 @@ void SensorNivel::calcValorMedia() {
 void SensorNivel::montarEstado(JsonDocument& doc) {
   //Aque está sendo colocado os dados que serão reptidamente enviados ao broker
   JsonArray medicoes = doc["measurements"].to<JsonArray>();
-  JsonObject medicao = medicoes.add<JsonObject>();
-  medicao["code"] = "nivel_agua",
-  medicao["data_type"] = "numeric";
-  medicao["value"] = _valor;
-  medicao["s_err"] = _sensorFalhou;
-  medicao["media"] = _valorMedia;
-  medicao["m_err"] = _mediaInvalida;
-  medicao["measured_at"] = horarioEpoch();
+  JsonObject medicao1 = medicoes.add<JsonObject>();
+  JsonObject medicao2 = medicoes.add<JsonObject>();
+  medicao1["code"] = "nivel_agua",
+  medicao1["data_type"] = "numeric";
+  medicao1["value"] = _valor;
+  medicao1["erro"] = _sensorFalhou;
+  medicao1["measured_at"] = horarioEpoch();
+  medicao2["code"] = "nivel_media",
+  medicao2["data_type"] = "numeric";
+  medicao2["value"] = _valorMedia;
+  medicao2["erros"] = _mediaInvalida;
+  medicao2["janel"] = JANELA_FILTRO;
+  medicao2["measured_at"] = horarioEpoch();
 }
 
