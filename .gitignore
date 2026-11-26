@@ -7,3 +7,5 @@
 include/DadosMqtt_casa.h
 
 sensorBase.patch
+
+include/DadosMqtt_ifrn.h
